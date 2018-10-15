@@ -1,2 +1,2 @@
 # R_Projects
-This rep
+This repository contains projects for the Coursera Data Science Specialization
