@@ -1,0 +1,12 @@
+name: Tsiaras_Shiny
+title: Tsiaras_Shiny
+username:
+account: athanasiostsiaras
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 514976
+bundleId: 1643931
+url: https://athanasiostsiaras.shinyapps.io/Tsiaras_Shiny/
+when: 1539619280.28511
+asMultiple: FALSE
+asStatic: FALSE
