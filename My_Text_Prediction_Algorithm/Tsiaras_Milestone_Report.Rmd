@@ -1,0 +1,196 @@
+---
+title: "Tsiaras_Milestone_Report"
+output: html_document
+author: Athanasios K. Tsiaras
+date: 10-23-2018
+---
+
+
+
+# 1. Exploratory Analysis
+
+## 1.1 Loading the data
+Data is loaded from the datasets folder into tibble data frames. Then those frames are binded into a single one and each line of text is grouped by the file it came from. Keeping the data both in individual and in total variables helps in the analysis of different aspects of the data, as demonstrated below.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+# Setting the datasets folder as the working directory
+setwd("~/Desktop/final")
+
+# Loading the necessary packages
+library(dplyr)
+library(tidytext)
+library(stopwords)
+library(stringi)
+library(tidyr)
+library(ggplot2)
+library(igraph)
+library(ggraph)
+library(ggpubr)
+library(gridExtra)
+
+# Reading files into tibble frames
+fileName <- c('en_US/en_US.news.txt', 'en_US/en_US.blogs.txt', 'en_US/en_US.twitter.txt')
+
+news <- readLines(fileName[1])
+news <- data_frame(source='news', line = 1:length(news),text=tolower(news))
+
+
+blogs <- readLines(fileName[2])
+blogs <- data_frame(source='blogs', line = 1:length(blogs),text=tolower(blogs))
+
+
+twit <- readLines(fileName[3])
+twit <- data_frame(source='twitter', line = 1:length(twit),text=tolower(twit))
+
+# Merging files into one data frame for better data manipulation
+all_text <- bind_rows(list(news,blogs,twit))
+all_text$source <- as.factor(all_text$source)
+```
+
+## 1.2 Exploratory Analysis
+
+### 1.2.1 Basic Data Summary
+
+Creating a report summarizing the number of words, lines and most popular words by file. This helps get a first feel of the data and is crucial to the development of the prediction algorithm. 
+
+```{r, echo=TRUE}
+# Basic line and word summaries
+source_text <- all_text %>%
+        unnest_tokens(word, text)
+
+line_word_info <- as.data.frame(list(
+        'Blogs' = c(
+                        dim(source_text[source_text$source=='news',])[1],
+                        dim(all_text[all_text$source=='news',])[1],
+                        round(mean(nchar(as.character(blogs$text))))
+                ),
+        
+        'News' = c(
+                                dim(source_text[source_text$source=='blogs',])[1], 
+                                dim(all_text[all_text$source=='blogs',])[1],
+                                round(mean(nchar(as.character(news$text))))
+                ),
+        
+        'Twitter' = c(
+                                dim(source_text[source_text$source=='twitter',])[1],
+                                dim(all_text[all_text$source=='twitter',])[1],
+                                round(mean(nchar(as.character(twit$text))))
+                )))
+
+row.names(line_word_info) <- c('Number of words', 'Number of lines', 'Average line length')
+
+numbers=c('1','2','3','4','5','6','7','8','9','10')
+
+source_words <- source_text %>%
+        count(source, word, sort=TRUE) %>%
+        filter(!substring(word,1,1) %in% numbers==TRUE) %>%
+        filter(!word %in% stop_words$word) %>%
+        ungroup()
+
+news_words <- arrange(source_words[source_words$source=='news',][1:20,], -n)
+blogs_words <- arrange(source_words[source_words$source=='blogs',][1:20,], -n)
+twit_words <- arrange(source_words[source_words$source=='twitter',][1:20,], -n)
+
+g_news <- ggplot(news_words, aes(x = reorder(word, -n), y = n)) +
+        labs(title='Most frequent words in News', x='Word', y='Frequency')+
+        geom_bar(fill = "#0073C2FF", stat = "identity") +
+        theme_light()
+
+g_blogs <- ggplot(blogs_words, aes(x = reorder(word, -n), y = n)) +
+        geom_bar(fill = "#0073C2FF", stat = "identity") +
+        labs(title='Most frequent words in Blogs', x='Word', y='Frequency') +
+        theme_light()
+
+g_twit <- ggplot(twit_words, aes(x = reorder(word, -n), y = n)) +
+        geom_bar(fill = "#0073C2FF", stat = "identity") +
+        labs(title='Most frequent words in Twitter', x='Word', y='Frequency') +
+        theme_light()
+
+
+words_by_source <- as.data.frame(cbind('twitter'=twit_words[,2:3],
+                                       'news'=news_words[,2:3], 
+                                       'blogs'=blogs_words[,2:3]))
+
+print(line_word_info)
+print(words_by_source)
+print(g_news)
+print(g_blogs)
+print(g_twit)
+```
+
+### 1.2.2 Tokenization, bigram-trigram analysis
+
+The frequency of two or three or even four words appearing together is examined. This helps us find patterns in our dataset and is key to the development of the prediction algorithm. In the making of the bigram-trigram-quadgram tibbles, unimportant common words like at, to, the etc are taken out along with numbers. This helps us focus on the words that show each file's individual characteristics.
+
+```{r, echo=TRUE}
+#==================================Tokenizing by n-gram=================================
+
+# How frequently do 2 words appear together?
+
+bigram <- all_text %>%
+        unnest_tokens(bigram, text, token = "ngrams", n = 2)
+
+# Most of the bigrams are common words useless for analysis ex. 'the', 'or', 'and', 'to
+# We filter those out along with any possible NA values
+
+bigram <- bigram %>%
+        filter(!is.na(bigram)) %>%
+        separate(bigram, c("first_word", "second_word"), sep = " ")
+
+bigram_filt <- bigram %>%
+        filter(!substring(first_word,1,1) %in% numbers==TRUE) %>%
+        filter(!substring(second_word,1,1) %in% numbers==TRUE) %>%
+        filter(!first_word %in% stop_words$word) %>%
+        filter(!second_word %in% stop_words$word)
+
+bigram_united <- bigram_filt %>%
+        unite(bigram, first_word, second_word, sep = " ")
+
+bigram_counts <- bigram_united %>% count(bigram, sort=TRUE)
+
+bigram_graph <- bigram_counts %>%
+        separate(bigram, c("first_word", "second_word"), sep = " ") %>%
+        filter(n > 2700) %>%
+        graph_from_data_frame()
+
+arr <- grid::arrow(type = "closed", 
+                   length = unit(.2, "cm"))
+
+set.seed(10-20-2018)
+
+ggraph(bigram_graph, layout = "kk") +
+        geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+                       arrow = arr, end_cap = circle(.1, 'cm')) +
+        geom_node_point(color = "darkblue", size = .5) +
+        geom_node_text(aes(label = name), vjust = 1, hjust = 1) +
+        theme_void()
+
+# How frequently do 3 words appear together?
+
+trigram <- all_text %>% 
+        unnest_tokens(trigram, text, token = "ngrams", n = 3) 
+
+trigram <- trigram[complete.cases(trigram),] %>%
+        separate(trigram, c("first_word", "second_word", "third_word"), sep = " ")
+
+trigram_filt <- trigram %>%
+        filter(!substring(first_word,1,1) %in% numbers==TRUE) %>%
+        filter(!substring(second_word,1,1) %in% numbers==TRUE) %>%
+        filter(!substring(third_word,1,1) %in% numbers==TRUE) %>%
+        filter(!first_word %in% stop_words$word) %>%
+        filter(!second_word %in% stop_words$word) %>%
+        filter(!third_word %in% stop_words$word)
+
+trigram_united <- trigram_filt %>%
+        unite(trigram, first_word, second_word, third_word, sep = " ")
+
+trigram_counts <- trigram_united %>% count(trigram, sort=TRUE)
+
+print(trigram_counts)
+
+```
+
+# 2.Next-steps, Prediction Algorithm implementation
+
+A very staight-forward approach on the prediction app implementation is to base its predictions on the n-grams. When a word is inserted by the user, the algorithm will search for the most possible next one to appear, based on the, if there are any, other words and the n-grams and, if there are not, base on the most possible unigrams.
