@@ -1,2 +1,2 @@
-# R_Projects
-This repository contains projects made for various purposes including online course Capstones or projects made for my Master of Science in Business Analytics
+This repository includes applications created with Shiny for academic purposes, online courses or just fun!
+Remember to eat a peach for peace - Enjoy!
