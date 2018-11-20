@@ -1,0 +1,1957 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Main\_Script\_Toronto}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{This is the main script}\label{this-is-the-main-script}
+
+The code can be put in categories: - Data Feeding and Cleaning - Mapping
+of the four major competing restaurant types - Creating a dataframe that
+contains every type of popular shop in each neighborhood
+
+    \subsection{Import libraries}\label{import-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} \PY{c+c1}{\PYZsh{} library to handle data in a vectorized manner}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} \PY{c+c1}{\PYZsh{} library for data analsysis}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{json} \PY{c+c1}{\PYZsh{} library to handle JSON files}
+        
+        \PY{c+c1}{\PYZsh{}!conda install \PYZhy{}c conda\PYZhy{}forge geopy \PYZhy{}\PYZhy{}yes \PYZsh{} uncomment this line if you haven\PYZsq{}t completed the Foursquare API lab}
+        \PY{k+kn}{from} \PY{n+nn}{geopy}\PY{n+nn}{.}\PY{n+nn}{geocoders} \PY{k}{import} \PY{n}{Nominatim} \PY{c+c1}{\PYZsh{} convert an address into latitude and longitude values}
+        
+        \PY{k+kn}{import} \PY{n+nn}{requests} \PY{c+c1}{\PYZsh{} library to handle requests}
+        \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{io}\PY{n+nn}{.}\PY{n+nn}{json} \PY{k}{import} \PY{n}{json\PYZus{}normalize} \PY{c+c1}{\PYZsh{} tranform JSON file into a pandas dataframe}
+        
+        \PY{c+c1}{\PYZsh{} Matplotlib and associated plotting modules}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{as} \PY{n+nn}{cm}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{as} \PY{n+nn}{colors}
+        
+        \PY{c+c1}{\PYZsh{} import k\PYZhy{}means from clustering stage}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+        
+        \PY{c+c1}{\PYZsh{}!conda install \PYZhy{}c conda\PYZhy{}forge folium=0.5.0 \PYZhy{}\PYZhy{}yes \PYZsh{} uncomment this line if you haven\PYZsq{}t completed the Foursquare API lab}
+        \PY{k+kn}{import} \PY{n+nn}{folium} \PY{c+c1}{\PYZsh{} map rendering library}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Libraries imported.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Libraries imported.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{CLIENT\PYZus{}ID} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RJH2UJFACJ5HDYTJJLTIDLQGROHWFPTIURBNY2BWXI1NU4XL}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} your Foursquare ID}
+        \PY{n}{CLIENT\PYZus{}SECRET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BT2RU4VJ02UKCPU4G2BEH51IDFR5XM1ZK1DBVTANRMKMFJHK}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} your Foursquare Secret}
+        \PY{n}{VERSION} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20180604}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{LIMIT} \PY{o}{=} \PY{l+m+mi}{30}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foursquare credentails:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}ID: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{CLIENT\PYZus{}ID}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CLIENT\PYZus{}SECRET:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Foursquare credentails:
+CLIENT\_ID: RJH2UJFACJ5HDYTJJLTIDLQGROHWFPTIURBNY2BWXI1NU4XL
+CLIENT\_SECRET:BT2RU4VJ02UKCPU4G2BEH51IDFR5XM1ZK1DBVTANRMKMFJHK
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{address} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Toronto,ON}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{geolocator} \PY{o}{=} \PY{n}{Nominatim}\PY{p}{(}\PY{p}{)}
+        \PY{n}{location} \PY{o}{=} \PY{n}{geolocator}\PY{o}{.}\PY{n}{geocode}\PY{p}{(}\PY{n}{address}\PY{p}{)}
+        \PY{n}{latitude} \PY{o}{=} \PY{n}{location}\PY{o}{.}\PY{n}{latitude}
+        \PY{n}{longitude} \PY{o}{=} \PY{n}{location}\PY{o}{.}\PY{n}{longitude}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/athanasiostsiaras/anaconda3/lib/python3.6/site-packages/geopy/geocoders/osm.py:143: UserWarning: Using Nominatim with the default "geopy/1.17.0" `user\_agent` is strongly discouraged, as it violates Nominatim's ToS https://operations.osmfoundation.org/policies/nominatim/ and may possibly cause 403 and 429 HTTP errors. Please specify a custom `user\_agent` with `Nominatim(user\_agent="my-application")` or by overriding the default `user\_agent`: `geopy.geocoders.options.default\_user\_agent = "my-application"`. In geopy 2.0 this will become an exception.
+  UserWarning
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+43.653963 -79.387207
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{tor} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{neigh\PYZus{}geo\PYZus{}data.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{tor} \PY{o}{=} \PY{n}{tor}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{tor}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}   Postcode      Borough                           Neighbourhood   Latitude  \textbackslash{}
+        0      M1B  Scarborough                          Rouge, Malvern  43.806686   
+        1      M1C  Scarborough  Port Union, Rouge Hill, Highland Creek  43.784535   
+        2      M1E  Scarborough       Guildwood, Morningside, West Hill  43.763573   
+        3      M1G  Scarborough                                  Woburn  43.770992   
+        4      M1H  Scarborough                               Cedarbrae  43.773136   
+        
+           Longitude  
+        0 -79.194353  
+        1 -79.160497  
+        2 -79.188711  
+        3 -79.216917  
+        4 -79.239476  
+\end{Verbatim}
+            
+    \subsection{Search for Chinese}\label{search-for-chinese}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chinese}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign relevant part of JSON to venues}
+        \PY{n}{venues} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} tranform venues into a dataframe}
+        \PY{n}{chinese} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{venues}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} keep only columns that include venue name, and anything that is associated with location}
+        \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{chinese}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{chinese} \PY{o}{=} \PY{n}{chinese}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} function that extracts the category of the venue}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} filter the category for each row}
+        \PY{n}{chinese}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{chinese}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} clean column names by keeping only last term}
+        \PY{n}{chinese}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{chinese}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        \PY{n}{chinese} \PY{o}{=} \PY{n}{chinese}\PY{p}{[}\PY{n}{chinese}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chinese Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{chinese}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                  name          categories            address  \textbackslash{}
+        0            Rosewood Chinese Cuisine  Chinese Restaurant  463 Dundas St. W.   
+        4  North-East Chinese Restaurant 華北美食  Chinese Restaurant     476 Dundas St.   
+        5            Chinese Traditional Buns  Chinese Restaurant   536 Dundas St. W   
+        6       Hong Shing Chinese Restaurant  Chinese Restaurant    195 Dundas St W   
+        7        Yueh Tung Chinese Restaurant  Chinese Restaurant  126 Elizabeth St.   
+        
+           cc     city country        crossStreet  distance  \textbackslash{}
+        0  CA  Toronto  Canada       at Larch St.       770   
+        4  CA  Toronto  Canada              Huron       767   
+        5  CA  Toronto  Canada     at Spadina Ave       960   
+        6  CA  Toronto  Canada  at University Ave       107   
+        7  CA  Toronto  Canada         Dundas St.       210   
+        
+                                            formattedAddress  \textbackslash{}
+        0  [463 Dundas St. W. (at Larch St.), Toronto ON {\ldots}   
+        4       [476 Dundas St. (Huron), Toronto ON, Canada]   
+        5  [536 Dundas St. W (at Spadina Ave), Toronto ON{\ldots}   
+        6  [195 Dundas St W (at University Ave), Toronto {\ldots}   
+        7  [126 Elizabeth St. (Dundas St.), Toronto ON, C{\ldots}   
+        
+                                              labeledLatLngs        lat        lng  \textbackslash{}
+        0  [\{'label': 'display', 'lat': 43.65317123090316{\ldots}  43.653171 -79.396710   
+        4  [\{'label': 'display', 'lat': 43.6531846832903,{\ldots}  43.653185 -79.396677   
+        5  [\{'label': 'display', 'lat': 43.65271411616852{\ldots}  43.652714 -79.399006   
+        6  [\{'label': 'display', 'lat': 43.65492521335936{\ldots}  43.654925 -79.387089   
+        7  [\{'label': 'display', 'lat': 43.65528126342919{\ldots}  43.655281 -79.385337   
+        
+          postalCode state                        id  
+        0    M5T 1G8    ON  4fd3ea3ee4b0191b9c2b1aff  
+        4        NaN    ON  4d06c1ccc2e53704428cc567  
+        5    M5T 1H3    ON  4b622bf1f964a5200b3a2ae3  
+        6    M5G 1C7    ON  4b2027b5f964a520f82d24e3  
+        7        NaN    ON  52a7ae41498eed3af4d0a3fa  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Indian}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign relevant part of JSON to venues}
+        \PY{n}{venues} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} tranform venues into a dataframe}
+        \PY{n}{indian} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{venues}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} keep only columns that include venue name, and anything that is associated with location}
+        \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{indian}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{indian} \PY{o}{=} \PY{n}{indian}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} function that extracts the category of the venue}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} filter the category for each row}
+        \PY{n}{indian}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{indian}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} clean column names by keeping only last term}
+        \PY{n}{indian}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{indian}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        
+        \PY{n}{indian} \PY{o}{=} \PY{n}{indian}\PY{p}{[}\PY{n}{indian}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Indian Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{indian}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                            name         categories                   address  \textbackslash{}
+        0  Aroma Fine Indian Restaurant  Indian Restaurant            287 King St. W   
+        1         Indian Biriyani House  Indian Restaurant           181 Dundas St W   
+        2                Indian Flavour  Indian Restaurant           123 Dundas St W   
+        3             Indian Roti House  Indian Restaurant         256 Queens Quay W   
+        6         Indian Biriyani House  Indian Restaurant  120 Adelaide Street West   
+        
+           cc     city country                    crossStreet  distance  \textbackslash{}
+        0  CA  Toronto  Canada                    at John St.       857   
+        1  CA  Toronto  Canada               W of Chestnut St       136   
+        2  CA  Toronto  Canada            btw Elizabeth \& Bay       311   
+        3  CA  Toronto  Canada  btwn Rees St \& Lower Simcoe S      1665   
+        6  CA  Toronto  Canada                  at Bay Street       683   
+        
+                                            formattedAddress  \textbackslash{}
+        0  [287 King St. W (at John St.), Toronto ON M5V {\ldots}   
+        1  [181 Dundas St W (W of Chestnut St), Toronto O{\ldots}   
+        2  [123 Dundas St W (btw Elizabeth \& Bay), Toront{\ldots}   
+        3  [256 Queens Quay W (btwn Rees St \& Lower Simco{\ldots}   
+        6  [120 Adelaide Street West (at Bay Street), Tor{\ldots}   
+        
+                                              labeledLatLngs        lat        lng  \textbackslash{}
+        0  [\{'label': 'display', 'lat': 43.64646252150344{\ldots}  43.646463 -79.389644   
+        1  [\{'label': 'display', 'lat': 43.65511996683289{\ldots}  43.655120 -79.386645   
+        2  [\{'label': 'display', 'lat': 43.65564910619165{\ldots}  43.655649 -79.384119   
+        3  [\{'label': 'display', 'lat': 43.63906038875002{\ldots}  43.639060 -79.385422   
+        6  [\{'label': 'display', 'lat': 43.65005028051833{\ldots}  43.650050 -79.380662   
+        
+          postalCode state                        id  
+        0    M5V 1J5    ON  4aef8854f964a5201cd921e3  
+        1    M5G 1C7    ON  4afd920ff964a520ad2822e3  
+        2        NaN    ON  4b2a634af964a52020a824e3  
+        3    M5J 1B5    ON  50b79b94e4b0a577af25a83f  
+        6    M5H 3V1    ON  4fea497c121d2480d3579412  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italian}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign relevant part of JSON to venues}
+        \PY{n}{venues} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} tranform venues into a dataframe}
+        \PY{n}{italian} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{venues}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} keep only columns that include venue name, and anything that is associated with location}
+        \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{italian}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{italian} \PY{o}{=} \PY{n}{italian}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} function that extracts the category of the venue}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} filter the category for each row}
+        \PY{n}{italian}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{italian}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} clean column names by keeping only last term}
+        \PY{n}{italian}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{italian}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        
+        \PY{n}{italian} \PY{o}{=} \PY{n}{italian}\PY{p}{[}\PY{n}{italian}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italian Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{italian}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                                name          categories  \textbackslash{}
+        0  Scaddabush Italian Kitchen \& Bar  Italian Restaurant   
+        1           Fabbrica Rustic Italian  Italian Restaurant   
+        2       Kit Kat Italian Bar \& Grill  Italian Restaurant   
+        4                 The Fresh Italian  Italian Restaurant   
+        6                LA's Italian + Bar  Italian Restaurant   
+        
+                         address  cc     city country crossStreet  distance  \textbackslash{}
+        0  382 Yonge St. Unit \#7  CA  Toronto  Canada     Gerrard       652   
+        1     66 Wellington St W  CA  Toronto  Canada         NaN       877   
+        2          297 King St W  CA  Toronto  Canada  at John St       870   
+        4                    NaN  CA  Toronto  Canada         NaN       127   
+        6                    NaN  CA      NaN  Canada         NaN       434   
+        
+                                            formattedAddress  \textbackslash{}
+        0  [382 Yonge St. Unit \#7 (Gerrard), Toronto ON M{\ldots}   
+        1   [66 Wellington St W, Toronto ON M5K 1E7, Canada]   
+        2  [297 King St W (at John St), Toronto ON M5V 1J{\ldots}   
+        4                               [Toronto ON, Canada]   
+        6                                           [Canada]   
+        
+                                              labeledLatLngs        lat        lng  \textbackslash{}
+        0  [\{'label': 'display', 'lat': 43.65892029202872{\ldots}  43.658920 -79.382891   
+        1  [\{'label': 'display', 'lat': 43.647161, 'lng':{\ldots}  43.647161 -79.381691   
+        2  [\{'label': 'display', 'lat': 43.64641598988062{\ldots}  43.646416 -79.390030   
+        4  [\{'label': 'display', 'lat': 43.65499143746528{\ldots}  43.654991 -79.387897   
+        6  [\{'label': 'display', 'lat': 43.65053979517576{\ldots}  43.650540 -79.384603   
+        
+          postalCode state                        id  
+        0    M5B 1S8    ON  52f6816f11d24a43115dc834  
+        1    M5K 1E7    ON  5b897e92db1d81002c91df8c  
+        2    M5V 1J5    ON  4b3ace79f964a520ae6e25e3  
+        4        NaN    ON  51bf3866498e55ee55df8db0  
+        6        NaN   NaN  4f88cf84e4b002b90ab3b9b9  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greek}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign relevant part of JSON to venues}
+        \PY{n}{venues} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} tranform venues into a dataframe}
+        \PY{n}{greek} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{venues}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} keep only columns that include venue name, and anything that is associated with location}
+        \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{greek}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{greek} \PY{o}{=} \PY{n}{greek}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} function that extracts the category of the venue}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} filter the category for each row}
+        \PY{n}{greek}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{greek}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} clean column names by keeping only last term}
+        \PY{n}{greek}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{greek}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        
+        \PY{n}{greek} \PY{o}{=} \PY{n}{greek}\PY{p}{[}\PY{n}{greek}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greek Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{greek}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                           name        categories               address  cc  \textbackslash{}
+        0              Jimmy The Greek  Greek Restaurant         220 Yonge St.  CA   
+        1              Jimmy the Greek  Greek Restaurant    555 University Ave  CA   
+        2  Mary's Greek souvlaki Plate  Greek Restaurant         109 McCaul St  CA   
+        3              Jimmy the Greek  Greek Restaurant           181 Bay St.  CA   
+        4              Jimmy The Greek  Greek Restaurant  100 Wellington St. W  CA   
+        
+              city country                            crossStreet  distance  \textbackslash{}
+        0  Toronto  Canada  in Urban Eatery, Toronto Eaton Centre       512   
+        1  Toronto  Canada                                    NaN       422   
+        2  Toronto  Canada                      McCaul and Dundas       288   
+        3  Toronto  Canada                    in Brookfield Place      1057   
+        4  Toronto  Canada             in Toronto-Dominion Centre       859   
+        
+                                            formattedAddress  \textbackslash{}
+        0  [220 Yonge St. (in Urban Eatery, Toronto Eaton{\ldots}   
+        1           [555 University Ave, Toronto ON, Canada]   
+        2  [109 McCaul St (McCaul and Dundas), Toronto ON{\ldots}   
+        3  [181 Bay St. (in Brookfield Place), Toronto ON{\ldots}   
+        4  [100 Wellington St. W (in Toronto-Dominion Cen{\ldots}   
+        
+                                              labeledLatLngs        lat        lng  \textbackslash{}
+        0  [\{'label': 'display', 'lat': 43.6545029224916,{\ldots}  43.654503 -79.380888   
+        1  [\{'label': 'display', 'lat': 43.657557, 'lng':{\ldots}  43.657557 -79.388906   
+        2  [\{'label': 'display', 'lat': 43.653572, 'lng':{\ldots}  43.653572 -79.390747   
+        3  [\{'label': 'display', 'lat': 43.64684830110011{\ldots}  43.646848 -79.378498   
+        4  [\{'label': 'display', 'lat': 43.647010829377, {\ldots}  43.647011 -79.382557   
+        
+          postalCode state                        id  
+        0    M5B 2H1    ON  4e8889c961afee1b75b4cc4a  
+        1        NaN    ON  5824b2a2569e1b2e982f4451  
+        2    M5T 3K5    ON  4ba3b374f964a520035638e3  
+        3    M5J 2T3    ON  4cb602883ac93704388dd00a  
+        4    M5J 1J1    ON  4be82e6a947820a1cc8eb4db  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{search\PYZus{}query} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lebanese}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/search?client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}query=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} \PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{,} \PY{n}{VERSION}\PY{p}{,} \PY{n}{search\PYZus{}query}\PY{p}{,} \PY{n}{radius}\PY{p}{,} \PY{n}{LIMIT}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} assign relevant part of JSON to venues}
+        \PY{n}{venues} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} tranform venues into a dataframe}
+        \PY{n}{lebanese} \PY{o}{=} \PY{n}{json\PYZus{}normalize}\PY{p}{(}\PY{n}{venues}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} keep only columns that include venue name, and anything that is associated with location}
+        \PY{n}{filtered\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{lebanese}\PY{o}{.}\PY{n}{columns} \PY{k}{if} \PY{n}{col}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{lebanese} \PY{o}{=} \PY{n}{lebanese}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{filtered\PYZus{}columns}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} function that extracts the category of the venue}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}category\PYZus{}type}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{k}{except}\PY{p}{:}
+                \PY{n}{categories\PYZus{}list} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue.categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{categories\PYZus{}list}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{n}{categories\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} filter the category for each row}
+        \PY{n}{lebanese}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lebanese}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}category\PYZus{}type}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} clean column names by keeping only last term}
+        \PY{n}{lebanese}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{column}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{lebanese}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+        
+        \PY{n}{lebanese} \PY{o}{=} \PY{n}{lebanese}\PY{p}{[}\PY{n}{lebanese}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lebanese Restaurant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{lebanese}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Empty DataFrame
+        Columns: [name, categories, address, cc, city, country, crossStreet, distance, formattedAddress, labeledLatLngs, lat, lng, postalCode, state, id]
+        Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{venues\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{[}\PY{n}{latitude}\PY{p}{,} \PY{n}{longitude}\PY{p}{]}\PY{p}{,} \PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)} \PY{c+c1}{\PYZsh{} generate map centred around the Conrad Hotel}
+         
+         \PY{c+c1}{\PYZsh{} add the Chinese restaurants as orange circle markers}
+         \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{chinese}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{chinese}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{chinese}\PY{o}{.}\PY{n}{categories}\PY{p}{)}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                 \PY{n}{fill} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+             \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{venues\PYZus{}map}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add the Indian restaurants as red circle markers}
+         \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{indian}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{indian}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{indian}\PY{o}{.}\PY{n}{categories}\PY{p}{)}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                 \PY{n}{fill} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+             \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{venues\PYZus{}map}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} add the Chinese restaurants as green circle markers}
+         \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{italian}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{italian}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{italian}\PY{o}{.}\PY{n}{categories}\PY{p}{)}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                 \PY{n}{fill} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+             \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{venues\PYZus{}map}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} add the Greek restaurants as green circle markers}
+         \PY{k}{for} \PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{greek}\PY{o}{.}\PY{n}{lat}\PY{p}{,} \PY{n}{greek}\PY{o}{.}\PY{n}{lng}\PY{p}{,} \PY{n}{greek}\PY{o}{.}\PY{n}{categories}\PY{p}{)}\PY{p}{:}
+             \PY{n}{folium}\PY{o}{.}\PY{n}{features}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}
+                 \PY{p}{[}\PY{n}{lat}\PY{p}{,} \PY{n}{lng}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{popup}\PY{o}{=}\PY{n}{label}\PY{p}{,}
+                 \PY{n}{fill} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.6}
+             \PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{venues\PYZus{}map}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} display map}
+         \PY{n}{venues\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <folium.folium.Map at 0x114437be0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{def} \PY{n+nf}{getNearbyVenues}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{latitudes}\PY{p}{,} \PY{n}{longitudes}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{venues\PYZus{}list}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{lat}\PY{p}{,} \PY{n}{lng} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{latitudes}\PY{p}{,} \PY{n}{longitudes}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                     
+                 \PY{c+c1}{\PYZsh{} create the API request URL}
+                 \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.foursquare.com/v2/venues/explore?\PYZam{}client\PYZus{}id=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}client\PYZus{}secret=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}v=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}ll=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}radius=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZam{}limit=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                     \PY{n}{CLIENT\PYZus{}ID}\PY{p}{,} 
+                     \PY{n}{CLIENT\PYZus{}SECRET}\PY{p}{,} 
+                     \PY{n}{VERSION}\PY{p}{,} 
+                     \PY{n}{lat}\PY{p}{,} 
+                     \PY{n}{lng}\PY{p}{,} 
+                     \PY{n}{radius}\PY{p}{,} 
+                     \PY{n}{LIMIT}\PY{p}{)}
+                     
+                 \PY{c+c1}{\PYZsh{} make the GET request}
+                 \PY{n}{results} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{response}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 
+                 \PY{c+c1}{\PYZsh{} return only relevant information for each nearby venue}
+                 \PY{n}{venues\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{(}
+                     \PY{n}{name}\PY{p}{,} 
+                     \PY{n}{lat}\PY{p}{,} 
+                     \PY{n}{lng}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{location}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lng}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}  
+                     \PY{n}{v}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{results}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{nearby\PYZus{}venues} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{venue\PYZus{}list} \PY{o+ow}{in} \PY{n}{venues\PYZus{}list} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{venue\PYZus{}list}\PY{p}{]}\PY{p}{)}
+             \PY{n}{nearby\PYZus{}venues}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{k}{return}\PY{p}{(}\PY{n}{nearby\PYZus{}venues}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{toronto} \PY{o}{=} \PY{n}{getNearbyVenues}\PY{p}{(}\PY{n}{names}\PY{o}{=}\PY{n}{tor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighbourhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{latitudes}\PY{o}{=}\PY{n}{tor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                            \PY{n}{longitudes}\PY{o}{=}\PY{n}{tor}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                           \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Rouge, Malvern
+Port Union, Rouge Hill, Highland Creek
+Guildwood, Morningside, West Hill
+Woburn
+Cedarbrae
+Scarborough Village
+East Birchmount Park, Ionview, Kennedy Park
+Golden Mile, Oakridge, Clairlea
+Cliffcrest, Scarborough Village West, Cliffside
+Cliffside West, Birch Cliff
+Wexford Heights, Dorset Park, Scarborough Town Centre
+Maryvale, Wexford
+Agincourt
+Sullivan, Clarks Corners, Tam O'Shanter
+Milliken, Agincourt North, L'Amoreaux East, Steeles East
+Steeles West, L'Amoreaux West
+Upper Rouge
+Hillcrest Village
+Fairview, Oriole, Henry Farm
+Bayview Village
+Silver Hills, York Mills
+Willowdale, Newtonbrook
+Willowdale South
+York Mills West
+Willowdale West
+Parkwoods
+Don Mills North
+Don Mills South, Flemingdon Park
+Wilson Heights, Downsview North, Bathurst Manor
+York University, Northwood Park
+Downsview East, CFB Toronto
+Downsview West
+Downsview Central
+Downsview Northwest
+Victoria Village
+Parkview Hill, Woodbine Gardens
+Woodbine Heights
+The Beaches
+Leaside
+Thorncliffe Park
+East Toronto
+The Danforth West, Riverdale
+The Beaches West, India Bazaar
+Studio District
+Lawrence Park
+Davisville North
+North Toronto West
+Davisville
+Moore Park, Summerhill East
+South Hill, Rathnelly, Forest Hill SE, Deer Park, Summerhill West
+Rosedale
+Cabbagetown, St. James Town
+Church and Wellesley
+Regent Park, Harbourfront
+Ryerson, Garden District
+St. James Town
+Berczy Park
+Central Bay Street
+Adelaide, Richmond, King
+Harbourfront East, Union Station, Toronto Islands
+Toronto Dominion Centre, Design Exchange
+Commerce Court, Victoria Hotel
+Bedford Park, Lawrence Manor East
+Roselawn
+Forest Hill West, Forest Hill North
+North Midtown, The Annex, Yorkville
+Harbord, University of Toronto
+Kensington Market, Grange Park, Chinatown
+King and Spadina, CN Tower, South Niagara, Bathurst Quay, Island airport, Railway Lands, Harbourfront West
+Stn A PO Boxes 25 The Esplanade
+Underground city, First Canadian Place
+Lawrence Heights, Lawrence Manor
+Glencairn
+Humewood-Cedarvale
+Caledonia-Fairbanks
+Christie
+Dovercourt Village, Dufferin
+Trinity, Little Portugal
+Exhibition Place, Brockton, Parkdale Village
+North Park, Upwood Park, Maple Leaf Park
+Silverthorn, Mount Dennis, Keelesdale, Del Ray
+The Junction North, Runnymede
+High Park, The Junction South
+Roncesvalles, Parkdale
+Runnymede, Swansea
+Queen's Park
+Canada Post Gateway Processing Centre
+Business reply mail Processing Centre969 Eastern
+Humber Bay Shores, New Toronto, Mimico South
+Long Branch, Alderwood
+Old Mill North, Montgomery Road, The Kingsway
+Old Mill South, King's Mill Park, Humber Bay, The Queensway East, Royal York South East, Sunnylea, Mimico NE, Kingsway Park South East
+Kingsway Park South West, Mimico NW, The Queensway West, South of Bloor, Royal York South West
+Islington Avenue
+Cloverdale, West Deane Park, Princess Gardens, Martin Grove, Islington
+Old Burnhamthorpe, Markland Wood, Eringate, Bloordale Gardens
+Humber Summit
+Humberlea, Emery
+Weston
+Westmount
+Richview Gardens, Kingsview Village, St. Phillips, Martin Grove Gardens
+Beaumond Heights, Humbergate, Jamestown, Mount Olive, Silverstone, Thistletown, Albion Gardens, South Steeles
+Northwest
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{toronto}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} (1323, 7)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{toronto}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}                                                     Neighborhood Latitude  \textbackslash{}
+         Neighborhood                                                                
+         Adelaide, Richmond, King                                               30   
+         Agincourt                                                               4   
+         Bayview Village                                                         4   
+         Beaumond Heights, Humbergate, Jamestown, Mount {\ldots}                      9   
+         Bedford Park, Lawrence Manor East                                      24   
+         Berczy Park                                                            30   
+         Business reply mail Processing Centre969 Eastern                       17   
+         Cabbagetown, St. James Town                                            30   
+         Caledonia-Fairbanks                                                     6   
+         Canada Post Gateway Processing Centre                                  11   
+         Cedarbrae                                                               7   
+         Central Bay Street                                                     30   
+         Christie                                                               16   
+         Church and Wellesley                                                   30   
+         Cliffcrest, Scarborough Village West, Cliffside                         2   
+         Cliffside West, Birch Cliff                                             4   
+         Cloverdale, West Deane Park, Princess Gardens, {\ldots}                      1   
+         Commerce Court, Victoria Hotel                                         30   
+         Davisville                                                             30   
+         Davisville North                                                       10   
+         Don Mills North                                                         6   
+         Don Mills South, Flemingdon Park                                       22   
+         Dovercourt Village, Dufferin                                           18   
+         Downsview Central                                                       3   
+         Downsview East, CFB Toronto                                             3   
+         Downsview Northwest                                                     5   
+         Downsview West                                                          4   
+         East Birchmount Park, Ionview, Kennedy Park                             8   
+         East Toronto                                                            3   
+         Exhibition Place, Brockton, Parkdale Village                           22   
+         Fairview, Oriole, Henry Farm                                           30   
+         Forest Hill West, Forest Hill North                                     5   
+         Glencairn                                                               4   
+         Golden Mile, Oakridge, Clairlea                                         9   
+         Guildwood, Morningside, West Hill                                       6   
+         Harbord, University of Toronto                                         30   
+         Harbourfront East, Union Station, Toronto Islands                      30   
+         High Park, The Junction South                                          24   
+         Hillcrest Village                                                       5   
+         Humber Bay Shores, New Toronto, Mimico South                           15   
+         Humber Summit                                                           2   
+         Humberlea, Emery                                                        2   
+         Humewood-Cedarvale                                                      3   
+         Kensington Market, Grange Park, Chinatown                              30   
+         King and Spadina, CN Tower, South Niagara, Bath{\ldots}                     14   
+         Kingsway Park South West, Mimico NW, The Queens{\ldots}                     11   
+         Lawrence Heights, Lawrence Manor                                       11   
+         Lawrence Park                                                           4   
+         Leaside                                                                30   
+         Long Branch, Alderwood                                                 10   
+         Maryvale, Wexford                                                       4   
+         Milliken, Agincourt North, L'Amoreaux East, Ste{\ldots}                      2   
+         Moore Park, Summerhill East                                             4   
+         North Midtown, The Annex, Yorkville                                    26   
+         North Park, Upwood Park, Maple Leaf Park                                4   
+         North Toronto West                                                     19   
+         Northwest                                                               2   
+         Old Burnhamthorpe, Markland Wood, Eringate, Blo{\ldots}                      7   
+         Old Mill North, Montgomery Road, The Kingsway                           2   
+         Old Mill South, King's Mill Park, Humber Bay, T{\ldots}                      1   
+         Parkview Hill, Woodbine Gardens                                        14   
+         Parkwoods                                                               4   
+         Port Union, Rouge Hill, Highland Creek                                  1   
+         Queen's Park                                                           30   
+         Regent Park, Harbourfront                                              30   
+         Richview Gardens, Kingsview Village, St. Philli{\ldots}                      3   
+         Roncesvalles, Parkdale                                                 16   
+         Rosedale                                                                4   
+         Roselawn                                                                3   
+         Rouge, Malvern                                                          1   
+         Runnymede, Swansea                                                     30   
+         Ryerson, Garden District                                               30   
+         Scarborough Village                                                     2   
+         Silver Hills, York Mills                                                1   
+         Silverthorn, Mount Dennis, Keelesdale, Del Ray                          4   
+         South Hill, Rathnelly, Forest Hill SE, Deer Par{\ldots}                     14   
+         St. James Town                                                         30   
+         Steeles West, L'Amoreaux West                                          13   
+         Stn A PO Boxes 25 The Esplanade                                        30   
+         Studio District                                                        30   
+         Sullivan, Clarks Corners, Tam O'Shanter                                 9   
+         The Beaches                                                             3   
+         The Beaches West, India Bazaar                                         20   
+         The Danforth West, Riverdale                                           30   
+         The Junction North, Runnymede                                           4   
+         Thorncliffe Park                                                       17   
+         Toronto Dominion Centre, Design Exchange                               30   
+         Trinity, Little Portugal                                               30   
+         Underground city, First Canadian Place                                 30   
+         Victoria Village                                                        5   
+         Westmount                                                               7   
+         Weston                                                                  2   
+         Wexford Heights, Dorset Park, Scarborough Town {\ldots}                      8   
+         Willowdale South                                                       30   
+         Willowdale West                                                         4   
+         Wilson Heights, Downsview North, Bathurst Manor                        19   
+         Woburn                                                                  4   
+         Woodbine Heights                                                        8   
+         York Mills West                                                         2   
+         York University, Northwood Park                                         6   
+         
+                                                             Neighborhood Longitude  \textbackslash{}
+         Neighborhood                                                                 
+         Adelaide, Richmond, King                                                30   
+         Agincourt                                                                4   
+         Bayview Village                                                          4   
+         Beaumond Heights, Humbergate, Jamestown, Mount {\ldots}                       9   
+         Bedford Park, Lawrence Manor East                                       24   
+         Berczy Park                                                             30   
+         Business reply mail Processing Centre969 Eastern                        17   
+         Cabbagetown, St. James Town                                             30   
+         Caledonia-Fairbanks                                                      6   
+         Canada Post Gateway Processing Centre                                   11   
+         Cedarbrae                                                                7   
+         Central Bay Street                                                      30   
+         Christie                                                                16   
+         Church and Wellesley                                                    30   
+         Cliffcrest, Scarborough Village West, Cliffside                          2   
+         Cliffside West, Birch Cliff                                              4   
+         Cloverdale, West Deane Park, Princess Gardens, {\ldots}                       1   
+         Commerce Court, Victoria Hotel                                          30   
+         Davisville                                                              30   
+         Davisville North                                                        10   
+         Don Mills North                                                          6   
+         Don Mills South, Flemingdon Park                                        22   
+         Dovercourt Village, Dufferin                                            18   
+         Downsview Central                                                        3   
+         Downsview East, CFB Toronto                                              3   
+         Downsview Northwest                                                      5   
+         Downsview West                                                           4   
+         East Birchmount Park, Ionview, Kennedy Park                              8   
+         East Toronto                                                             3   
+         Exhibition Place, Brockton, Parkdale Village                            22   
+         Fairview, Oriole, Henry Farm                                            30   
+         Forest Hill West, Forest Hill North                                      5   
+         Glencairn                                                                4   
+         Golden Mile, Oakridge, Clairlea                                          9   
+         Guildwood, Morningside, West Hill                                        6   
+         Harbord, University of Toronto                                          30   
+         Harbourfront East, Union Station, Toronto Islands                       30   
+         High Park, The Junction South                                           24   
+         Hillcrest Village                                                        5   
+         Humber Bay Shores, New Toronto, Mimico South                            15   
+         Humber Summit                                                            2   
+         Humberlea, Emery                                                         2   
+         Humewood-Cedarvale                                                       3   
+         Kensington Market, Grange Park, Chinatown                               30   
+         King and Spadina, CN Tower, South Niagara, Bath{\ldots}                      14   
+         Kingsway Park South West, Mimico NW, The Queens{\ldots}                      11   
+         Lawrence Heights, Lawrence Manor                                        11   
+         Lawrence Park                                                            4   
+         Leaside                                                                 30   
+         Long Branch, Alderwood                                                  10   
+         Maryvale, Wexford                                                        4   
+         Milliken, Agincourt North, L'Amoreaux East, Ste{\ldots}                       2   
+         Moore Park, Summerhill East                                              4   
+         North Midtown, The Annex, Yorkville                                     26   
+         North Park, Upwood Park, Maple Leaf Park                                 4   
+         North Toronto West                                                      19   
+         Northwest                                                                2   
+         Old Burnhamthorpe, Markland Wood, Eringate, Blo{\ldots}                       7   
+         Old Mill North, Montgomery Road, The Kingsway                            2   
+         Old Mill South, King's Mill Park, Humber Bay, T{\ldots}                       1   
+         Parkview Hill, Woodbine Gardens                                         14   
+         Parkwoods                                                                4   
+         Port Union, Rouge Hill, Highland Creek                                   1   
+         Queen's Park                                                            30   
+         Regent Park, Harbourfront                                               30   
+         Richview Gardens, Kingsview Village, St. Philli{\ldots}                       3   
+         Roncesvalles, Parkdale                                                  16   
+         Rosedale                                                                 4   
+         Roselawn                                                                 3   
+         Rouge, Malvern                                                           1   
+         Runnymede, Swansea                                                      30   
+         Ryerson, Garden District                                                30   
+         Scarborough Village                                                      2   
+         Silver Hills, York Mills                                                 1   
+         Silverthorn, Mount Dennis, Keelesdale, Del Ray                           4   
+         South Hill, Rathnelly, Forest Hill SE, Deer Par{\ldots}                      14   
+         St. James Town                                                          30   
+         Steeles West, L'Amoreaux West                                           13   
+         Stn A PO Boxes 25 The Esplanade                                         30   
+         Studio District                                                         30   
+         Sullivan, Clarks Corners, Tam O'Shanter                                  9   
+         The Beaches                                                              3   
+         The Beaches West, India Bazaar                                          20   
+         The Danforth West, Riverdale                                            30   
+         The Junction North, Runnymede                                            4   
+         Thorncliffe Park                                                        17   
+         Toronto Dominion Centre, Design Exchange                                30   
+         Trinity, Little Portugal                                                30   
+         Underground city, First Canadian Place                                  30   
+         Victoria Village                                                         5   
+         Westmount                                                                7   
+         Weston                                                                   2   
+         Wexford Heights, Dorset Park, Scarborough Town {\ldots}                       8   
+         Willowdale South                                                        30   
+         Willowdale West                                                          4   
+         Wilson Heights, Downsview North, Bathurst Manor                         19   
+         Woburn                                                                   4   
+         Woodbine Heights                                                         8   
+         York Mills West                                                          2   
+         York University, Northwood Park                                          6   
+         
+                                                             Venue  Venue Latitude  \textbackslash{}
+         Neighborhood                                                                
+         Adelaide, Richmond, King                               30              30   
+         Agincourt                                               4               4   
+         Bayview Village                                         4               4   
+         Beaumond Heights, Humbergate, Jamestown, Mount {\ldots}      9               9   
+         Bedford Park, Lawrence Manor East                      24              24   
+         Berczy Park                                            30              30   
+         Business reply mail Processing Centre969 Eastern       17              17   
+         Cabbagetown, St. James Town                            30              30   
+         Caledonia-Fairbanks                                     6               6   
+         Canada Post Gateway Processing Centre                  11              11   
+         Cedarbrae                                               7               7   
+         Central Bay Street                                     30              30   
+         Christie                                               16              16   
+         Church and Wellesley                                   30              30   
+         Cliffcrest, Scarborough Village West, Cliffside         2               2   
+         Cliffside West, Birch Cliff                             4               4   
+         Cloverdale, West Deane Park, Princess Gardens, {\ldots}      1               1   
+         Commerce Court, Victoria Hotel                         30              30   
+         Davisville                                             30              30   
+         Davisville North                                       10              10   
+         Don Mills North                                         6               6   
+         Don Mills South, Flemingdon Park                       22              22   
+         Dovercourt Village, Dufferin                           18              18   
+         Downsview Central                                       3               3   
+         Downsview East, CFB Toronto                             3               3   
+         Downsview Northwest                                     5               5   
+         Downsview West                                          4               4   
+         East Birchmount Park, Ionview, Kennedy Park             8               8   
+         East Toronto                                            3               3   
+         Exhibition Place, Brockton, Parkdale Village           22              22   
+         Fairview, Oriole, Henry Farm                           30              30   
+         Forest Hill West, Forest Hill North                     5               5   
+         Glencairn                                               4               4   
+         Golden Mile, Oakridge, Clairlea                         9               9   
+         Guildwood, Morningside, West Hill                       6               6   
+         Harbord, University of Toronto                         30              30   
+         Harbourfront East, Union Station, Toronto Islands      30              30   
+         High Park, The Junction South                          24              24   
+         Hillcrest Village                                       5               5   
+         Humber Bay Shores, New Toronto, Mimico South           15              15   
+         Humber Summit                                           2               2   
+         Humberlea, Emery                                        2               2   
+         Humewood-Cedarvale                                      3               3   
+         Kensington Market, Grange Park, Chinatown              30              30   
+         King and Spadina, CN Tower, South Niagara, Bath{\ldots}     14              14   
+         Kingsway Park South West, Mimico NW, The Queens{\ldots}     11              11   
+         Lawrence Heights, Lawrence Manor                       11              11   
+         Lawrence Park                                           4               4   
+         Leaside                                                30              30   
+         Long Branch, Alderwood                                 10              10   
+         Maryvale, Wexford                                       4               4   
+         Milliken, Agincourt North, L'Amoreaux East, Ste{\ldots}      2               2   
+         Moore Park, Summerhill East                             4               4   
+         North Midtown, The Annex, Yorkville                    26              26   
+         North Park, Upwood Park, Maple Leaf Park                4               4   
+         North Toronto West                                     19              19   
+         Northwest                                               2               2   
+         Old Burnhamthorpe, Markland Wood, Eringate, Blo{\ldots}      7               7   
+         Old Mill North, Montgomery Road, The Kingsway           2               2   
+         Old Mill South, King's Mill Park, Humber Bay, T{\ldots}      1               1   
+         Parkview Hill, Woodbine Gardens                        14              14   
+         Parkwoods                                               4               4   
+         Port Union, Rouge Hill, Highland Creek                  1               1   
+         Queen's Park                                           30              30   
+         Regent Park, Harbourfront                              30              30   
+         Richview Gardens, Kingsview Village, St. Philli{\ldots}      3               3   
+         Roncesvalles, Parkdale                                 16              16   
+         Rosedale                                                4               4   
+         Roselawn                                                3               3   
+         Rouge, Malvern                                          1               1   
+         Runnymede, Swansea                                     30              30   
+         Ryerson, Garden District                               30              30   
+         Scarborough Village                                     2               2   
+         Silver Hills, York Mills                                1               1   
+         Silverthorn, Mount Dennis, Keelesdale, Del Ray          4               4   
+         South Hill, Rathnelly, Forest Hill SE, Deer Par{\ldots}     14              14   
+         St. James Town                                         30              30   
+         Steeles West, L'Amoreaux West                          13              13   
+         Stn A PO Boxes 25 The Esplanade                        30              30   
+         Studio District                                        30              30   
+         Sullivan, Clarks Corners, Tam O'Shanter                 9               9   
+         The Beaches                                             3               3   
+         The Beaches West, India Bazaar                         20              20   
+         The Danforth West, Riverdale                           30              30   
+         The Junction North, Runnymede                           4               4   
+         Thorncliffe Park                                       17              17   
+         Toronto Dominion Centre, Design Exchange               30              30   
+         Trinity, Little Portugal                               30              30   
+         Underground city, First Canadian Place                 30              30   
+         Victoria Village                                        5               5   
+         Westmount                                               7               7   
+         Weston                                                  2               2   
+         Wexford Heights, Dorset Park, Scarborough Town {\ldots}      8               8   
+         Willowdale South                                       30              30   
+         Willowdale West                                         4               4   
+         Wilson Heights, Downsview North, Bathurst Manor        19              19   
+         Woburn                                                  4               4   
+         Woodbine Heights                                        8               8   
+         York Mills West                                         2               2   
+         York University, Northwood Park                         6               6   
+         
+                                                             Venue Longitude  \textbackslash{}
+         Neighborhood                                                          
+         Adelaide, Richmond, King                                         30   
+         Agincourt                                                         4   
+         Bayview Village                                                   4   
+         Beaumond Heights, Humbergate, Jamestown, Mount {\ldots}                9   
+         Bedford Park, Lawrence Manor East                                24   
+         Berczy Park                                                      30   
+         Business reply mail Processing Centre969 Eastern                 17   
+         Cabbagetown, St. James Town                                      30   
+         Caledonia-Fairbanks                                               6   
+         Canada Post Gateway Processing Centre                            11   
+         Cedarbrae                                                         7   
+         Central Bay Street                                               30   
+         Christie                                                         16   
+         Church and Wellesley                                             30   
+         Cliffcrest, Scarborough Village West, Cliffside                   2   
+         Cliffside West, Birch Cliff                                       4   
+         Cloverdale, West Deane Park, Princess Gardens, {\ldots}                1   
+         Commerce Court, Victoria Hotel                                   30   
+         Davisville                                                       30   
+         Davisville North                                                 10   
+         Don Mills North                                                   6   
+         Don Mills South, Flemingdon Park                                 22   
+         Dovercourt Village, Dufferin                                     18   
+         Downsview Central                                                 3   
+         Downsview East, CFB Toronto                                       3   
+         Downsview Northwest                                               5   
+         Downsview West                                                    4   
+         East Birchmount Park, Ionview, Kennedy Park                       8   
+         East Toronto                                                      3   
+         Exhibition Place, Brockton, Parkdale Village                     22   
+         Fairview, Oriole, Henry Farm                                     30   
+         Forest Hill West, Forest Hill North                               5   
+         Glencairn                                                         4   
+         Golden Mile, Oakridge, Clairlea                                   9   
+         Guildwood, Morningside, West Hill                                 6   
+         Harbord, University of Toronto                                   30   
+         Harbourfront East, Union Station, Toronto Islands                30   
+         High Park, The Junction South                                    24   
+         Hillcrest Village                                                 5   
+         Humber Bay Shores, New Toronto, Mimico South                     15   
+         Humber Summit                                                     2   
+         Humberlea, Emery                                                  2   
+         Humewood-Cedarvale                                                3   
+         Kensington Market, Grange Park, Chinatown                        30   
+         King and Spadina, CN Tower, South Niagara, Bath{\ldots}               14   
+         Kingsway Park South West, Mimico NW, The Queens{\ldots}               11   
+         Lawrence Heights, Lawrence Manor                                 11   
+         Lawrence Park                                                     4   
+         Leaside                                                          30   
+         Long Branch, Alderwood                                           10   
+         Maryvale, Wexford                                                 4   
+         Milliken, Agincourt North, L'Amoreaux East, Ste{\ldots}                2   
+         Moore Park, Summerhill East                                       4   
+         North Midtown, The Annex, Yorkville                              26   
+         North Park, Upwood Park, Maple Leaf Park                          4   
+         North Toronto West                                               19   
+         Northwest                                                         2   
+         Old Burnhamthorpe, Markland Wood, Eringate, Blo{\ldots}                7   
+         Old Mill North, Montgomery Road, The Kingsway                     2   
+         Old Mill South, King's Mill Park, Humber Bay, T{\ldots}                1   
+         Parkview Hill, Woodbine Gardens                                  14   
+         Parkwoods                                                         4   
+         Port Union, Rouge Hill, Highland Creek                            1   
+         Queen's Park                                                     30   
+         Regent Park, Harbourfront                                        30   
+         Richview Gardens, Kingsview Village, St. Philli{\ldots}                3   
+         Roncesvalles, Parkdale                                           16   
+         Rosedale                                                          4   
+         Roselawn                                                          3   
+         Rouge, Malvern                                                    1   
+         Runnymede, Swansea                                               30   
+         Ryerson, Garden District                                         30   
+         Scarborough Village                                               2   
+         Silver Hills, York Mills                                          1   
+         Silverthorn, Mount Dennis, Keelesdale, Del Ray                    4   
+         South Hill, Rathnelly, Forest Hill SE, Deer Par{\ldots}               14   
+         St. James Town                                                   30   
+         Steeles West, L'Amoreaux West                                    13   
+         Stn A PO Boxes 25 The Esplanade                                  30   
+         Studio District                                                  30   
+         Sullivan, Clarks Corners, Tam O'Shanter                           9   
+         The Beaches                                                       3   
+         The Beaches West, India Bazaar                                   20   
+         The Danforth West, Riverdale                                     30   
+         The Junction North, Runnymede                                     4   
+         Thorncliffe Park                                                 17   
+         Toronto Dominion Centre, Design Exchange                         30   
+         Trinity, Little Portugal                                         30   
+         Underground city, First Canadian Place                           30   
+         Victoria Village                                                  5   
+         Westmount                                                         7   
+         Weston                                                            2   
+         Wexford Heights, Dorset Park, Scarborough Town {\ldots}                8   
+         Willowdale South                                                 30   
+         Willowdale West                                                   4   
+         Wilson Heights, Downsview North, Bathurst Manor                  19   
+         Woburn                                                            4   
+         Woodbine Heights                                                  8   
+         York Mills West                                                   2   
+         York University, Northwood Park                                   6   
+         
+                                                             Venue Category  
+         Neighborhood                                                        
+         Adelaide, Richmond, King                                        30  
+         Agincourt                                                        4  
+         Bayview Village                                                  4  
+         Beaumond Heights, Humbergate, Jamestown, Mount {\ldots}               9  
+         Bedford Park, Lawrence Manor East                               24  
+         Berczy Park                                                     30  
+         Business reply mail Processing Centre969 Eastern                17  
+         Cabbagetown, St. James Town                                     30  
+         Caledonia-Fairbanks                                              6  
+         Canada Post Gateway Processing Centre                           11  
+         Cedarbrae                                                        7  
+         Central Bay Street                                              30  
+         Christie                                                        16  
+         Church and Wellesley                                            30  
+         Cliffcrest, Scarborough Village West, Cliffside                  2  
+         Cliffside West, Birch Cliff                                      4  
+         Cloverdale, West Deane Park, Princess Gardens, {\ldots}               1  
+         Commerce Court, Victoria Hotel                                  30  
+         Davisville                                                      30  
+         Davisville North                                                10  
+         Don Mills North                                                  6  
+         Don Mills South, Flemingdon Park                                22  
+         Dovercourt Village, Dufferin                                    18  
+         Downsview Central                                                3  
+         Downsview East, CFB Toronto                                      3  
+         Downsview Northwest                                              5  
+         Downsview West                                                   4  
+         East Birchmount Park, Ionview, Kennedy Park                      8  
+         East Toronto                                                     3  
+         Exhibition Place, Brockton, Parkdale Village                    22  
+         Fairview, Oriole, Henry Farm                                    30  
+         Forest Hill West, Forest Hill North                              5  
+         Glencairn                                                        4  
+         Golden Mile, Oakridge, Clairlea                                  9  
+         Guildwood, Morningside, West Hill                                6  
+         Harbord, University of Toronto                                  30  
+         Harbourfront East, Union Station, Toronto Islands               30  
+         High Park, The Junction South                                   24  
+         Hillcrest Village                                                5  
+         Humber Bay Shores, New Toronto, Mimico South                    15  
+         Humber Summit                                                    2  
+         Humberlea, Emery                                                 2  
+         Humewood-Cedarvale                                               3  
+         Kensington Market, Grange Park, Chinatown                       30  
+         King and Spadina, CN Tower, South Niagara, Bath{\ldots}              14  
+         Kingsway Park South West, Mimico NW, The Queens{\ldots}              11  
+         Lawrence Heights, Lawrence Manor                                11  
+         Lawrence Park                                                    4  
+         Leaside                                                         30  
+         Long Branch, Alderwood                                          10  
+         Maryvale, Wexford                                                4  
+         Milliken, Agincourt North, L'Amoreaux East, Ste{\ldots}               2  
+         Moore Park, Summerhill East                                      4  
+         North Midtown, The Annex, Yorkville                             26  
+         North Park, Upwood Park, Maple Leaf Park                         4  
+         North Toronto West                                              19  
+         Northwest                                                        2  
+         Old Burnhamthorpe, Markland Wood, Eringate, Blo{\ldots}               7  
+         Old Mill North, Montgomery Road, The Kingsway                    2  
+         Old Mill South, King's Mill Park, Humber Bay, T{\ldots}               1  
+         Parkview Hill, Woodbine Gardens                                 14  
+         Parkwoods                                                        4  
+         Port Union, Rouge Hill, Highland Creek                           1  
+         Queen's Park                                                    30  
+         Regent Park, Harbourfront                                       30  
+         Richview Gardens, Kingsview Village, St. Philli{\ldots}               3  
+         Roncesvalles, Parkdale                                          16  
+         Rosedale                                                         4  
+         Roselawn                                                         3  
+         Rouge, Malvern                                                   1  
+         Runnymede, Swansea                                              30  
+         Ryerson, Garden District                                        30  
+         Scarborough Village                                              2  
+         Silver Hills, York Mills                                         1  
+         Silverthorn, Mount Dennis, Keelesdale, Del Ray                   4  
+         South Hill, Rathnelly, Forest Hill SE, Deer Par{\ldots}              14  
+         St. James Town                                                  30  
+         Steeles West, L'Amoreaux West                                   13  
+         Stn A PO Boxes 25 The Esplanade                                 30  
+         Studio District                                                 30  
+         Sullivan, Clarks Corners, Tam O'Shanter                          9  
+         The Beaches                                                      3  
+         The Beaches West, India Bazaar                                  20  
+         The Danforth West, Riverdale                                    30  
+         The Junction North, Runnymede                                    4  
+         Thorncliffe Park                                                17  
+         Toronto Dominion Centre, Design Exchange                        30  
+         Trinity, Little Portugal                                        30  
+         Underground city, First Canadian Place                          30  
+         Victoria Village                                                 5  
+         Westmount                                                        7  
+         Weston                                                           2  
+         Wexford Heights, Dorset Park, Scarborough Town {\ldots}               8  
+         Willowdale South                                                30  
+         Willowdale West                                                  4  
+         Wilson Heights, Downsview North, Bathurst Manor                 19  
+         Woburn                                                           4  
+         Woodbine Heights                                                 8  
+         York Mills West                                                  2  
+         York University, Northwood Park                                  6  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} one hot encoding}
+         \PY{n}{toronto\PYZus{}onehot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{toronto}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Venue Category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{prefix\PYZus{}sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add neighborhood column back to dataframe}
+         \PY{n}{toronto\PYZus{}onehot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{toronto}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         
+         \PY{c+c1}{\PYZsh{} move neighborhood column to the first column}
+         \PY{n}{fixed\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{n}{toronto\PYZus{}onehot}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{toronto\PYZus{}onehot}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{toronto\PYZus{}onehot} \PY{o}{=} \PY{n}{toronto\PYZus{}onehot}\PY{p}{[}\PY{n}{fixed\PYZus{}columns}\PY{p}{]}
+         
+         \PY{n}{toronto\PYZus{}onehot}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    Yoga Studio  Accessories Store  Adult Boutique  Airport  \textbackslash{}
+         0            0                  0               0        0   
+         1            0                  0               0        0   
+         2            0                  0               0        0   
+         3            0                  0               0        0   
+         4            0                  0               0        0   
+         
+            Airport Food Court  Airport Gate  Airport Lounge  Airport Service  \textbackslash{}
+         0                   0             0               0                0   
+         1                   0             0               0                0   
+         2                   0             0               0                0   
+         3                   0             0               0                0   
+         4                   0             0               0                0   
+         
+            Airport Terminal  American Restaurant  Antique Shop  Aquarium  Art Gallery  \textbackslash{}
+         0                 0                    0             0         0            0   
+         1                 0                    0             0         0            0   
+         2                 0                    0             0         0            0   
+         3                 0                    0             0         0            0   
+         4                 0                    0             0         0            0   
+         
+            Art Museum  Arts \& Crafts Store  Asian Restaurant  Athletics \& Sports  \textbackslash{}
+         0           0                    0                 0                   0   
+         1           0                    0                 0                   0   
+         2           0                    0                 0                   0   
+         3           0                    0                 0                   0   
+         4           0                    0                 0                   0   
+         
+            Auto Workshop  BBQ Joint  Baby Store  Bagel Shop  Bakery  Bank  Bar  \textbackslash{}
+         0              0          0           0           0       0     0    0   
+         1              0          0           0           0       0     0    1   
+         2              0          0           0           0       0     0    0   
+         3              0          0           0           0       0     0    0   
+         4              0          0           0           0       0     0    0   
+         
+            Baseball Field  Basketball Court  Basketball Stadium  Beer Bar  Beer Store  \textbackslash{}
+         0               0                 0                   0         0           0   
+         1               0                 0                   0         0           0   
+         2               0                 0                   0         0           0   
+         3               0                 0                   0         0           0   
+         4               0                 0                   0         0           0   
+         
+            Belgian Restaurant  Bike Shop  Bistro  Board Shop  Boat or Ferry  \textbackslash{}
+         0                   0          0       0           0              0   
+         1                   0          0       0           0              0   
+         2                   0          0       0           0              0   
+         3                   0          0       0           0              0   
+         4                   0          0       0           0              0   
+         
+            Bookstore  Boutique  Breakfast Spot  Brewery  Bridal Shop  Bubble Tea Shop  \textbackslash{}
+         0          0         0               0        0            0                0   
+         1          0         0               0        0            0                0   
+         2          0         0               0        0            0                0   
+         3          0         0               0        0            0                0   
+         4          0         0               0        0            0                0   
+         
+            Burger Joint  Burrito Place  Bus Line  Bus Station  Bus Stop  Butcher  \textbackslash{}
+         0             0              0         0            0         0        0   
+         1             0              0         0            0         0        0   
+         2             0              0         0            0         0        0   
+         3             0              0         0            0         0        0   
+         4             0              0         0            0         0        0   
+         
+            Cafeteria  Café  Cajun / Creole Restaurant  Candy Store  \textbackslash{}
+         0          0     0                          0            0   
+         1          0     0                          0            0   
+         2          0     0                          0            0   
+         3          0     0                          0            0   
+         4          0     0                          0            0   
+         
+            Caribbean Restaurant  Cheese Shop  Chinese Restaurant  Chocolate Shop  \textbackslash{}
+         0                     0            0                   0               0   
+         1                     0            0                   0               0   
+         2                     0            0                   0               0   
+         3                     0            0                   0               0   
+         4                     0            0                   0               0   
+         
+            Church  Climbing Gym  Clothing Store  Cocktail Bar  Coffee Shop  \textbackslash{}
+         0       0             0               0             0            0   
+         1       0             0               0             0            0   
+         2       0             0               0             0            0   
+         3       0             0               0             0            0   
+         4       0             0               0             0            0   
+         
+            College Arts Building  College Gym  College Stadium  \textbackslash{}
+         0                      0            0                0   
+         1                      0            0                0   
+         2                      0            0                0   
+         3                      0            0                0   
+         4                      0            0                0   
+         
+            Comfort Food Restaurant  Comic Shop  Concert Hall  \textbackslash{}
+         0                        0           0             0   
+         1                        0           0             0   
+         2                        0           0             0   
+         3                        0           0             0   
+         4                        0           0             0   
+         
+            Construction \& Landscaping  Convenience Store  Cosmetics Shop  \textbackslash{}
+         0                           0                  0               0   
+         1                           0                  0               0   
+         2                           0                  0               0   
+         3                           0                  0               0   
+         4                           0                  0               0   
+         
+            Coworking Space  Creperie  Cuban Restaurant  Curling Ice  Dance Studio  \textbackslash{}
+         0                0         0                 0            0             0   
+         1                0         0                 0            0             0   
+         2                0         0                 0            0             0   
+         3                0         0                 0            0             0   
+         4                0         0                 0            0             0   
+         
+            Deli / Bodega  Department Store  Dessert Shop  Dim Sum Restaurant  Diner  \textbackslash{}
+         0              0                 0             0                   0      0   
+         1              0                 0             0                   0      0   
+         2              0                 0             0                   0      0   
+         3              0                 0             0                   0      0   
+         4              0                 0             0                   0      0   
+         
+            Discount Store  Dog Run  Drugstore  Dumpling Restaurant  \textbackslash{}
+         0               0        0          0                    0   
+         1               0        0          0                    0   
+         2               0        0          0                    0   
+         3               0        0          0                    0   
+         4               0        0          0                    0   
+         
+            Eastern European Restaurant  Electronics Store  Empanada Restaurant  \textbackslash{}
+         0                            0                  0                    0   
+         1                            0                  0                    0   
+         2                            0                  0                    0   
+         3                            0                  1                    0   
+         4                            0                  0                    0   
+         
+            Ethiopian Restaurant  Event Space  Falafel Restaurant  Farmers Market  \textbackslash{}
+         0                     0            0                   0               0   
+         1                     0            0                   0               0   
+         2                     0            0                   0               0   
+         3                     0            0                   0               0   
+         4                     0            0                   0               0   
+         
+            Fast Food Restaurant  Field  Fish \& Chips Shop  Fish Market  Flea Market  \textbackslash{}
+         0                     1      0                  0            0            0   
+         1                     0      0                  0            0            0   
+         2                     0      0                  0            0            0   
+         3                     0      0                  0            0            0   
+         4                     0      0                  0            0            0   
+         
+            Flower Shop  Food  Food \& Drink Shop  Food Court  Food Truck  Fountain  \textbackslash{}
+         0            0     0                  0           0           0         0   
+         1            0     0                  0           0           0         0   
+         2            0     0                  0           0           0         0   
+         3            0     0                  0           0           0         0   
+         4            0     0                  0           0           0         0   
+         
+            French Restaurant  Fried Chicken Joint  Frozen Yogurt Shop  \textbackslash{}
+         0                  0                    0                   0   
+         1                  0                    0                   0   
+         2                  0                    0                   0   
+         3                  0                    0                   0   
+         4                  0                    0                   0   
+         
+            Fruit \& Vegetable Store  Furniture / Home Store  Garden  Garden Center  \textbackslash{}
+         0                        0                       0       0              0   
+         1                        0                       0       0              0   
+         2                        0                       0       0              0   
+         3                        0                       0       0              0   
+         4                        0                       0       0              0   
+         
+            Gastropub  Gay Bar  General Entertainment  General Travel  Gift Shop  \textbackslash{}
+         0          0        0                      0               0          0   
+         1          0        0                      0               0          0   
+         2          0        0                      0               0          0   
+         3          0        0                      0               0          0   
+         4          0        0                      0               0          0   
+         
+            Gluten-free Restaurant  Golf Course  Gourmet Shop  Greek Restaurant  \textbackslash{}
+         0                       0            0             0                 0   
+         1                       0            0             0                 0   
+         2                       0            0             0                 0   
+         3                       0            0             0                 0   
+         4                       0            0             0                 0   
+         
+            Grocery Store  Gym  Gym / Fitness Center  Hakka Restaurant  \textbackslash{}
+         0              0    0                     0                 0   
+         1              0    0                     0                 0   
+         2              0    0                     0                 0   
+         3              0    0                     0                 0   
+         4              0    0                     0                 0   
+         
+            Harbor / Marina  Hardware Store  Health \& Beauty Service  \textbackslash{}
+         0                0               0                        0   
+         1                0               0                        0   
+         2                0               0                        0   
+         3                0               0                        0   
+         4                0               0                        0   
+         
+            Health Food Store  Historic Site  History Museum  Hobby Shop  Hockey Arena  \textbackslash{}
+         0                  0              0               0           0             0   
+         1                  0              0               0           0             0   
+         2                  0              0               0           0             0   
+         3                  0              0               0           0             0   
+         4                  0              0               0           0             0   
+         
+            Home Service  Hostel  Hotel  Hotel Bar  Ice Cream Shop  Indian Restaurant  \textbackslash{}
+         0             0       0      0          0               0                  0   
+         1             0       0      0          0               0                  0   
+         2             0       0      0          0               0                  0   
+         3             0       0      0          0               0                  0   
+         4             0       0      0          0               0                  0   
+         
+            Indie Movie Theater  Indonesian Restaurant  Intersection  \textbackslash{}
+         0                    0                      0             0   
+         1                    0                      0             0   
+         2                    0                      0             0   
+         3                    0                      0             0   
+         4                    0                      0             0   
+         
+            Italian Restaurant  Japanese Restaurant  Jazz Club  Jewelry Store  \textbackslash{}
+         0                   0                    0          0              0   
+         1                   0                    0          0              0   
+         2                   0                    0          0              0   
+         3                   0                    0          0              0   
+         4                   0                    0          0              0   
+         
+            Jewish Restaurant  Juice Bar  Korean Restaurant  Lake  \textbackslash{}
+         0                  0          0                  0     0   
+         1                  0          0                  0     0   
+         2                  0          0                  0     0   
+         3                  0          0                  0     0   
+         4                  0          0                  0     0   
+         
+            Latin American Restaurant  Light Rail Station  Liquor Store  Lounge  \textbackslash{}
+         0                          0                   0             0       0   
+         1                          0                   0             0       0   
+         2                          0                   0             0       0   
+         3                          0                   0             0       0   
+         4                          0                   0             0       0   
+         
+            Market  Massage Studio  Medical Center  Mediterranean Restaurant  \textbackslash{}
+         0       0               0               0                         0   
+         1       0               0               0                         0   
+         2       0               0               0                         0   
+         3       0               0               0                         0   
+         4       0               0               0                         0   
+         
+            Men's Store  Metro Station  Mexican Restaurant  Middle Eastern Restaurant  \textbackslash{}
+         0            0              0                   0                          0   
+         1            0              0                   0                          0   
+         2            0              0                   0                          0   
+         3            0              0                   0                          0   
+         4            0              0                   1                          0   
+         
+            Miscellaneous Shop  Mobile Phone Shop  Monument / Landmark  Motel  \textbackslash{}
+         0                   0                  0                    0      0   
+         1                   0                  0                    0      0   
+         2                   0                  0                    0      0   
+         3                   0                  0                    0      0   
+         4                   0                  0                    0      0   
+         
+            Movie Theater  Moving Target  Museum  Music Venue  Nail Salon  \textbackslash{}
+         0              0              0       0            0           0   
+         1              0              0       0            0           0   
+         2              0              0       0            0           0   
+         3              0              0       0            0           0   
+         4              0              0       0            0           0   
+         
+                                      Neighborhood  New American Restaurant  Nightclub  \textbackslash{}
+         0                          Rouge, Malvern                        0          0   
+         1  Port Union, Rouge Hill, Highland Creek                        0          0   
+         2       Guildwood, Morningside, West Hill                        0          0   
+         3       Guildwood, Morningside, West Hill                        0          0   
+         4       Guildwood, Morningside, West Hill                        0          0   
+         
+            Noodle House  Opera House  Organic Grocery  Park  Performing Arts Venue  \textbackslash{}
+         0             0            0                0     0                      0   
+         1             0            0                0     0                      0   
+         2             0            0                0     0                      0   
+         3             0            0                0     0                      0   
+         4             0            0                0     0                      0   
+         
+            Persian Restaurant  Pet Store  Pharmacy  Piano Bar  Pizza Place  Plane  \textbackslash{}
+         0                   0          0         0          0            0      0   
+         1                   0          0         0          0            0      0   
+         2                   0          0         0          0            1      0   
+         3                   0          0         0          0            0      0   
+         4                   0          0         0          0            0      0   
+         
+            Playground  Plaza  Pool  Portuguese Restaurant  Pub  Ramen Restaurant  \textbackslash{}
+         0           0      0     0                      0    0                 0   
+         1           0      0     0                      0    0                 0   
+         2           0      0     0                      0    0                 0   
+         3           0      0     0                      0    0                 0   
+         4           0      0     0                      0    0                 0   
+         
+            Record Shop  Recording Studio  Rental Car Location  Restaurant  River  \textbackslash{}
+         0            0                 0                    0           0      0   
+         1            0                 0                    0           0      0   
+         2            0                 0                    0           0      0   
+         3            0                 0                    0           0      0   
+         4            0                 0                    0           0      0   
+         
+            Rock Climbing Spot  Salad Place  Salon / Barbershop  Sandwich Place  \textbackslash{}
+         0                   0            0                   0               0   
+         1                   0            0                   0               0   
+         2                   0            0                   0               0   
+         3                   0            0                   0               0   
+         4                   0            0                   0               0   
+         
+            Sculpture Garden  Seafood Restaurant  Shopping Mall  Shopping Plaza  \textbackslash{}
+         0                 0                   0              0               0   
+         1                 0                   0              0               0   
+         2                 0                   0              0               0   
+         3                 0                   0              0               0   
+         4                 0                   0              0               0   
+         
+            Skate Park  Skating Rink  Smoke Shop  Smoothie Shop  Soccer Field  Spa  \textbackslash{}
+         0           0             0           0              0             0    0   
+         1           0             0           0              0             0    0   
+         2           0             0           0              0             0    0   
+         3           0             0           0              0             0    0   
+         4           0             0           0              0             0    0   
+         
+            Speakeasy  Sporting Goods Shop  Sports Bar  Stadium  Stationery Store  \textbackslash{}
+         0          0                    0           0        0                 0   
+         1          0                    0           0        0                 0   
+         2          0                    0           0        0                 0   
+         3          0                    0           0        0                 0   
+         4          0                    0           0        0                 0   
+         
+            Steakhouse  Supermarket  Supplement Shop  Sushi Restaurant  Swim School  \textbackslash{}
+         0           0            0                0                 0            0   
+         1           0            0                0                 0            0   
+         2           0            0                0                 0            0   
+         3           0            0                0                 0            0   
+         4           0            0                0                 0            0   
+         
+            Taco Place  Tailor Shop  Taiwanese Restaurant  Tea Room  Thai Restaurant  \textbackslash{}
+         0           0            0                     0         0                0   
+         1           0            0                     0         0                0   
+         2           0            0                     0         0                0   
+         3           0            0                     0         0                0   
+         4           0            0                     0         0                0   
+         
+            Theater  Thrift / Vintage Store  Toy / Game Store  Trail  Train Station  \textbackslash{}
+         0        0                       0                 0      0              0   
+         1        0                       0                 0      0              0   
+         2        0                       0                 0      0              0   
+         3        0                       0                 0      0              0   
+         4        0                       0                 0      0              0   
+         
+            Turkish Restaurant  Vegetarian / Vegan Restaurant  Video Game Store  \textbackslash{}
+         0                   0                              0                 0   
+         1                   0                              0                 0   
+         2                   0                              0                 0   
+         3                   0                              0                 0   
+         4                   0                              0                 0   
+         
+            Video Store  Vietnamese Restaurant  Warehouse Store  Wine Bar  Wings Joint  \textbackslash{}
+         0            0                      0                0         0            0   
+         1            0                      0                0         0            0   
+         2            0                      0                0         0            0   
+         3            0                      0                0         0            0   
+         4            0                      0                0         0            0   
+         
+            Women's Store  
+         0              0  
+         1              0  
+         2              0  
+         3              0  
+         4              0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{toronto\PYZus{}grouped} \PY{o}{=} \PY{n}{toronto\PYZus{}onehot}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{toronto\PYZus{}grouped}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} (100, 234)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{return\PYZus{}most\PYZus{}common\PYZus{}venues}\PY{p}{(}\PY{n}{row}\PY{p}{,} \PY{n}{num\PYZus{}top\PYZus{}venues}\PY{p}{)}\PY{p}{:}
+             \PY{n}{row\PYZus{}categories} \PY{o}{=} \PY{n}{row}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+             \PY{n}{row\PYZus{}categories\PYZus{}sorted} \PY{o}{=} \PY{n}{row\PYZus{}categories}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{row\PYZus{}categories\PYZus{}sorted}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{num\PYZus{}top\PYZus{}venues}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{num\PYZus{}top\PYZus{}venues} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{indicators} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} create columns according to number of top venues}
+         \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{ind} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{num\PYZus{}top\PYZus{}venues}\PY{p}{)}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{columns}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ Most Common Venue}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ind}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{indicators}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{n}{columns}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{th Most Common Venue}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ind}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create a new dataframe}
+         \PY{n}{neighborhoods\PYZus{}venues\PYZus{}sorted} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{neighborhoods\PYZus{}venues\PYZus{}sorted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{toronto\PYZus{}grouped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{ind} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{toronto\PYZus{}grouped}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{neighborhoods\PYZus{}venues\PYZus{}sorted}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{ind}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{return\PYZus{}most\PYZus{}common\PYZus{}venues}\PY{p}{(}\PY{n}{toronto\PYZus{}grouped}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{ind}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{num\PYZus{}top\PYZus{}venues}\PY{p}{)}
+         
+         \PY{n}{neighborhoods\PYZus{}venues\PYZus{}sorted}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}                                         Neighborhood 1st Most Common Venue  \textbackslash{}
+         0                           Adelaide, Richmond, King            Steakhouse   
+         1                                          Agincourt        Clothing Store   
+         2                                    Bayview Village    Chinese Restaurant   
+         3  Beaumond Heights, Humbergate, Jamestown, Mount{\ldots}         Grocery Store   
+         4                  Bedford Park, Lawrence Manor East           Coffee Shop   
+         
+           2nd Most Common Venue 3rd Most Common Venue 4th Most Common Venue  \textbackslash{}
+         0                  Café                 Hotel   American Restaurant   
+         1          Skating Rink                Lounge        Breakfast Spot   
+         2   Japanese Restaurant                  Bank                  Café   
+         3   Fried Chicken Joint              Pharmacy           Pizza Place   
+         4    Italian Restaurant  Fast Food Restaurant      Sushi Restaurant   
+         
+              5th Most Common Venue        6th Most Common Venue 7th Most Common Venue  \textbackslash{}
+         0         Asian Restaurant               General Travel            Food Court   
+         1            Deli / Bodega  Eastern European Restaurant   Dumpling Restaurant   
+         2            Women's Store             Department Store   Empanada Restaurant   
+         3           Sandwich Place                   Beer Store  Fast Food Restaurant   
+         4  Comfort Food Restaurant                     Pharmacy           Pizza Place   
+         
+           8th Most Common Venue        9th Most Common Venue 10th Most Common Venue  
+         0    Seafood Restaurant                  Coffee Shop             Smoke Shop  
+         1             Drugstore                      Dog Run         Discount Store  
+         2     Electronics Store  Eastern European Restaurant    Dumpling Restaurant  
+         3           Coffee Shop                Garden Center              Drugstore  
+         4                  Café                      Butcher                    Pub  
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
