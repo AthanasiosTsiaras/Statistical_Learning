@@ -28,8 +28,8 @@ ui <- fluidPage(
               h6("This app was created by Athanasios K. Tsiaras and allows users to extract text from image files", align="center"),
               h6("Please follow the instructions on the right", align="center"),
               h6("Enjoy!", align="center"),
-              div(htmlOutput("contents"), style = "text-align:center")
-              
+              div(htmlOutput("contents"), style = "text-align:center"),
+              downloadButton("downloadData", "Download to .csv")
          
       )
    )
@@ -76,6 +76,15 @@ server <- function(input, output) {
                                      height = 300)
                         }, deleteFile = FALSE)
                         
+                        output$downloadData <- downloadHandler(
+                                filename = function() {
+                                        paste(input$dataset, ".csv", sep = "")
+                                },
+                                content = function(file) {
+                                        write.csv(scraped$text, file, row.names = FALSE)
+                                }
+                        )
+                        
                         output$Completed <- renderUI(
                                 return("Scrapping Completed")
                         )
@@ -108,7 +117,7 @@ server <- function(input, output) {
                      width = 400,
                      height = 300)
         }, deleteFile = FALSE)
-        # Instruct the algorithm to run the output only if the scraped file has non NA valus
+        # Instruct the algorithm to run the output only if the scraped file has non NA values
         if (!is.null(scraped)){
                 output$contents <- renderUI({
                 
