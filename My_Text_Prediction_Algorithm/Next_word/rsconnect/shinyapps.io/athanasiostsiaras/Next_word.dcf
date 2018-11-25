@@ -5,8 +5,8 @@ account: athanasiostsiaras
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 553526
-bundleId: 1687633
+bundleId: 1719430
 url: https://athanasiostsiaras.shinyapps.io/Next_word/
-when: 1541606482.16365
+when: 1543168153.42305
 asMultiple: FALSE
 asStatic: FALSE
