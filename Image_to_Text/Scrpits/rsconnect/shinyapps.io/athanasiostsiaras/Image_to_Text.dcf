@@ -5,8 +5,8 @@ account: athanasiostsiaras
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 564425
-bundleId: 1694648
+bundleId: 1719787
 url: https://athanasiostsiaras.shinyapps.io/Image_to_Text/
-when: 1541960127.00132
+when: 1543191259.99507
 asMultiple: FALSE
 asStatic: FALSE

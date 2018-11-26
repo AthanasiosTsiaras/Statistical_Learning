@@ -10,6 +10,7 @@ ui <- fluidPage(
    # Sidebar with a text input for the image link
    sidebarLayout(
       sidebarPanel(
+              img(src="RStudio.png", width=400, height=210),
               h5("How to use the app:"),
               h5("1. Choose an image file from your computer (.jpeg, .png, .jpg)"),
               h5("2. Hit the 'Get Text from Image' button, after the file is uploaded"),
@@ -19,17 +20,17 @@ ui <- fluidPage(
                         accept = c(".jpg",".png",".jpeg")
               ),
               
-              actionButton("scrapeText", "Get Text from Image")
+              actionButton("scrapeText", "Get Text from Image"),
+              downloadButton("downloadData", "Download text to .csv")
               ),
         
       # Main panel that showcases the text scraped from the image
       mainPanel(
-              h1("Thanos - Image to insights",align="center"), # App Title
+              h1("Image to Data",align="center"), # App Title
               h6("This app was created by Athanasios K. Tsiaras and allows users to extract text from image files", align="center"),
-              h6("Please follow the instructions on the right", align="center"),
+              h6("Please follow the instructions on the left", align="center"),
               h6("Enjoy!", align="center"),
-              div(htmlOutput("contents"), style = "text-align:center"),
-              downloadButton("downloadData", "Download to .csv")
+              div(htmlOutput("contents"), style = "text-align:center")
          
       )
    )
