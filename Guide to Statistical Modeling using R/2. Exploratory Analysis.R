@@ -117,3 +117,6 @@ boxsalbonus <- ggplot(dat, aes(group = Bonus)) +
 
 
 grid.arrange(boxintern, boxsalbonus, ncol = 2)
+
+
+
