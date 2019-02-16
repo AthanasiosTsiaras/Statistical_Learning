@@ -26,7 +26,7 @@ library(corrplot) # For a more visually appealing correlation matrix
 
 corrplot(cor(QuantVar), type = "upper", method = "circle", tl.cex = 0.9)
 
-# It would be a good idea to examinie the correlation between Experience~Age, Salary~Age, Salary~Experience
+# It would be a good idea to examine the correlation between Experience~Age, Salary~Age, Salary~Experience
 # Either the two latter are great predictors, or just mean the same thing (which seems unlikely)
 # The correlation between Experience and Age shows that probably one of them should be excluded
 # If you think about it, it makes sense older people to have more experience! No information gain from including both
@@ -48,6 +48,7 @@ plot(model2)
 
 # However, the residuals show some pattern and the qqplot is not clearly linear
 # We should be careful about choosing a linear model for this one - Not saying that it's the wrong thing to do
+
 
 #####----------- Regression Tree -----------#####
 

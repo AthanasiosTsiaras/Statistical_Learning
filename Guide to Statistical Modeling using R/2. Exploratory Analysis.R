@@ -1,14 +1,16 @@
 setwd("~/Desktop/My_Applications/Guide to Statistical Modeling using R")
+# Exploratory Analysis is when we get an overview of our data,
+# so that we decide what model might fit best
+# This is done both visually and computationally
 
 # Installing required libraries
 
 library(ggplot2) # Visualization package - built according to Edward Tufte's guidelines
 library(gridExtra) # Required to attach plots together
 
-options(digits=4)
 
 # Loading data
-dat <- read.csv('./data/Clean_Salaries.csv', header = TRUE)
+dat <- read.csv('./data/Clean_Salaries.csv', header = TRUE) # Importing the new(clean) data
 
 # Getting an overview of the data
 
