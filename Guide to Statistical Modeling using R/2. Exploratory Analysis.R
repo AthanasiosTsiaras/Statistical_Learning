@@ -121,4 +121,11 @@ boxsalbonus <- ggplot(dat, aes(group = Bonus)) +
 grid.arrange(boxintern, boxsalbonus, ncol = 2)
 
 
+# Visualize salary vs experience by bonus eligibility(0 or 1)
+
+ggplot(dat, aes(y = Salary, x = Experience, color = as.factor(Bonus))) +
+        geom_point() + 
+        geom_smooth(method = "lm") + 
+        labs(colour='Bonus eligibility') + 
+        ggtitle('Salary vs Experience by bonus eligibility:')
 
