@@ -1,0 +1,19 @@
+The file "Salaries.csv" is the raw data file and also the starting point of the code.
+This file is processed and cleaned in order to be used for analysis. 
+The file "Clean_Salaries.csv" is the clean dataset used for the model implementation.
+
+The data is about the salaries of executives in large corporations. The purpose of the analysis is to find a model 
+that can explain the relationship between the salary of an executive and a variety of quantitative or qualitative
+characteristics of them, related to their profession.
+
+Variables explanation:
+
+Salary: Annual Salary in USD
+Experience: Work experience in years
+Education: Education background in years
+Bonus: 1-0 dummy variable on whether the executive is eligible for a bonus
+Employment: Number of employees supervised
+Asets: Corporate assets in millions of USD
+Board: 1-0 dummy variable on whether the executive is a board member
+Age: Executive's age in years
+International: 1-0 dummy variable on whether the executive has international responsibility
