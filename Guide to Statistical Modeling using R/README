@@ -1,0 +1,13 @@
+This is a guide on statistical analysis using R programming. 
+It is aimed for those who are now starting their journey in programming, or for those who just want to sharpen their skills.
+R is a very powerful tool and even though it can be use for a plethora of applications, I think it's especially good in statistics
+The R community is extremely large - meaning that you can find answers to your problems by just googling them.
+The concepts introduced range from basic statistics to intermediate modeling - this is not a statistics guide, it is 
+a statistics guide for R! It would be very beneficial for the reader to have a statistical background.
+
+Feel free to fork the repository, tweak the knobs and tailor the scripts for your own benefit. However, make sure you give
+some feedback first.
+
+Have fun and enjoy!
+
+Athanasios (Thanos) Tsiaras
