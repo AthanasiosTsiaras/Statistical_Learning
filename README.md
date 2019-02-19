@@ -1,2 +1,4 @@
-This repository includes applications created with Shiny for academic purposes, online courses or just for fun!
-Remember to eat a peach for peace - Enjoy!
+Applications in Statistical Modeling and Machine Learning
+
+Created for academic purposes or just for fun!
+Enjoy and feel free to submit your feedback.
